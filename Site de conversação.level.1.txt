@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar do Velho Oeste - Conversas</title>
+    <style>
+        body {
+            background-color: #f8f1e4;
+            font-family: 'Courier New', Courier, monospace;
+            color: #5b3924;
+            background-image: url('https://i.imgur.com/UePbdph.jpg'); /* Textura de madeira */
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 2px solid #5b3924;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #5b3924;
+        }
+        .input-box {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-box input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #5b3924;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        .input-box button {
+            padding: 10px 20px;
+            background-color: #5b3924;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .input-box button:hover {
+            background-color: #3f2a1e;
+        }
+        .file-upload {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #5b3924;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .file-upload input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Bem-vindo ao Bar do Velho Oeste</div>
+        <div class="chat-box" id="chat-box">
+            <!-- Mensagens aparecerão aqui -->
+        </div>
+        <div class="input-box">
+            <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+        <div class="file-upload">
+            <label for="file-input">Envie um arquivo (até 10GB):</label>
+            <input type="file" id="file-input">
+            <button onclick="uploadFile()">Enviar Arquivo</button>
+            <div id="upload-status"></div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value;
+            if (message.trim() === '') return;
+
+            const chatBox = document.getElementById('chat-box');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerText = message;
+            chatBox.appendChild(messageElement);
+
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('file-input');
+            const file = fileInput.files[0];
+            const uploadStatus = document.getElementById('upload-status');
+
+            if (!file) {
+                uploadStatus.innerText = 'Nenhum arquivo selecionado.';
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024 * 1024) { // 10GB
+                uploadStatus.innerText = 'O arquivo é muito grande. Tamanho máximo permitido é de 10GB.';
+                return;
+            }
+
+            // Simulação de envio de arquivo
+            uploadStatus.innerText = 'Enviando arquivo...';
+            setTimeout(() => {
+                uploadStatus.innerText = 'Arquivo enviado com sucesso!';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
